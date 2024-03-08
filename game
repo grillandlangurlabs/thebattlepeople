@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Battle Cats Inspired Game</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  #game-container {
+    width: 600px;
+    margin: 0 auto;
+    border: 2px solid black;
+    padding: 20px;
+    position: relative;
+  }
+  .cat {
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    position: absolute;
+  }
+  #enemy {
+    background-color: red;
+    left: 400px;
+    top: 50px;
+  }
+  #player {
+    background-color: blue;
+    left: 100px;
+    top: 50px;
+  }
+</style>
+</head>
+<body>
+<div id="game-container">
+  <div id="player" class="cat"></div>
+  <div id="enemy" class="cat"></div>
+  <button onclick="movePlayer(10)">Move Right</button>
+  <button onclick="movePlayer(-10)">Move Left</button>
+</div>
+
+<script>
+  function movePlayer(amount) {
+    var player = document.getElementById('player');
+    var currentPosition = parseInt(player.style.left) || 0;
+    var newPosition = currentPosition + amount;
+    player.style.left = newPosition + 'px';
+    checkCollision();
+  }
+
+  function checkCollision() {
+    var player = document.getElementById('player');
+    var enemy = document.getElementById('enemy');
+    var playerRect = player.getBoundingClientRect();
+    var enemyRect = enemy.getBoundingClientRect();
+
+    if (
+      playerRect.left < enemyRect.right &&
+      playerRect.right > enemyRect.left &&
+      playerRect.top < enemyRect.bottom &&
+      playerRect.bottom > enemyRect.top
+    ) {
+      alert('Collision detected! Game Over!');
+    }
+  }
+</script>
+</body>
+</html>
